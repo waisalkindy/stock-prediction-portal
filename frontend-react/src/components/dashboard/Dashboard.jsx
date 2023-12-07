@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [ma100, setMA100] = useState('')
   const [ma200, setMA200] = useState('')
   const [predict, setPredict] = useState('')
+  const [mse, setMSE] = useState('')
 
   useEffect(() => {
     const fetchProtectedData = async () => {
@@ -41,6 +42,7 @@ const Dashboard = () => {
       setMA100(ma100Url)
       setMA200(ma200Url)
       setPredict(predictUrl)
+      setMSE(response.data.mse)
 
         // Set plot
       if(response.data.error){
@@ -68,7 +70,8 @@ const Dashboard = () => {
         </div>
 
         {/* Print prediction plot */}
-        <div className='prediction mt-5'>
+        {predict && (
+          <div className='prediction mt-5'>
           <div className="p-3">
             {plot && (
               <img src={plot} style={{ maxWidth: '100%' }} />
@@ -92,7 +95,14 @@ const Dashboard = () => {
               <img src={predict} style={{ maxWidth: '100%' }} />
             )}
           </div>
+
+          <div className="text-light p-3">
+            <h4>Model Evaluation</h4>
+            <p>Mean Squared Error (MSE) = {mse}</p>
+          </div>
         </div>
+        )}
+
       </div>
     </div>
   )
