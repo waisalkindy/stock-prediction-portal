@@ -59,7 +59,7 @@ class StockPredictionAPIView(APIView):
             plt.ylabel('Price')
             plt.legend()
             # Save the plot to a file
-            plot_img_path = f"{ticker}_100DMA_plot.png"
+            plot_img_path = f"{ticker}_100_DMA.png"
             plot_100_dma = save_plot(plot_img_path)
 
 
