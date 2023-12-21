@@ -54,7 +54,7 @@ class StockPredictionAPIView(APIView):
             plt.figure(figsize=(12,5))
             plt.plot(df.Close, label='Closing Price')
             plt.plot(ma100, 'r', label='100 DMA')
-            plt.title('100 Days Moving Average')
+            plt.title(f"100 Days Moving Average of {ticker}")
             plt.xlabel('Days')
             plt.ylabel('Price')
             plt.legend()
@@ -63,6 +63,23 @@ class StockPredictionAPIView(APIView):
             plot_100_dma = save_plot(plot_img_path)
 
 
+            # 200 days moving average
+            ma200 = df.Close.rolling(200).mean()
+            plt.switch_backend('AGG')
+            plt.figure(figsize=(12,5))
+            plt.plot(df.Close, label='Closing Price')
+            plt.plot(ma100, 'r', label='100 DMA')
+            plt.plot(ma200, 'g', label='200 DMA')
+            plt.title(f"200 Days Moving Average of {ticker}")
+            plt.xlabel('Days')
+            plt.ylabel('Price')
+            plt.legend()
+            # Save the plot to a file
+            plot_img_path = f"{ticker}_200_DMA.png"
+            plot_200_dma = save_plot(plot_img_path)
+
+
             return Response({'status': 'success',
                             'plot_img': plot_img,
-                            'plot_100_dma': plot_100_dma})
+                            'plot_100_dma': plot_100_dma,
+                            'plot_200_dma': plot_200_dma})
