@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import axios from 'axios'
 import axiosInstance from '../../axiosinstance'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const Dashboard = () => {
   const [ticker, setTicker] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchProtectedData = async () => {
@@ -19,13 +22,19 @@ const Dashboard = () => {
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
+    setLoading(true)
     try{
       const response = await axiosInstance.post('/predict/', {
         ticker: ticker
       });
       console.log(response.data);
+      if(response.data.error){
+        setError(response.data.error)
+      }
     }catch(error){
       console.error('There was an error making the API request', error)
+    }finally{
+      setLoading(false);
     }
 }
   return (
@@ -36,7 +45,10 @@ const Dashboard = () => {
             <input type="text" className="form-control" placeholder='Enter Stock Ticker'
             onChange={(e) => setTicker(e.target.value)} required
             />
-            <button type='submit' className='btn btn-info mt-3'>See Prediction</button>
+            <small>{error && <div className='text-danger'>{error}</div>}</small>
+            <button type='submit' className='btn btn-info mt-3'>
+              {loading ? <span><FontAwesomeIcon icon={faSpinner} spin /> Please wait...</span> : 'See Prediction'}
+            </button>
           </form>
         </div>
       </div>
