@@ -8,6 +8,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
+import os
+from django.conf import settings
 
 
 
@@ -28,8 +30,24 @@ class StockPredictionAPIView(APIView):
             start = datetime(now.year-10, now.month, now.day)
             end = now
             df = yf.download(ticker, start, end)
-            print(df)
             if df.empty:
                 return Response({"error": "No data found for the given ticker.",
                                 "status": status.HTTP_404_NOT_FOUND})
+            df = df.reset_index()
+
+            # Generate Basic Plot
+            plt.switch_backend('AGG')
+            plt.figure(figsize=(12,5))
+            plt.plot(df.Close, label='Closing Price')
+            plt.title(f"Closing price of {ticker}")
+            plt.xlabel('Days')
+            plt.ylabel('Closed Price')
+            plt.legend()
+            # Save the plot to a file
+            plot_img_path = f"{ticker}_plot.png"
+            image_path = os.path.join(settings.MEDIA_ROOT, plot_img_path)
+            plt.savefig(image_path)
+            plt.close()
+            img_url = settings.MEDIA_URL + plot_img_path
+            print(img_url)
             return Response({'status': 'success', 'ticker': ticker})
