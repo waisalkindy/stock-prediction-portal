@@ -16,11 +16,23 @@ const Dashboard = () => {
     }
     fetchProtectedData();
   }, [])
+
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
+    try{
+      const response = await axiosInstance.post('/predict/', {
+        ticker: ticker
+      });
+      console.log(response.data);
+    }catch(error){
+      console.error('There was an error making the API request', error)
+    }
+}
   return (
     <div className='container'>
       <div className="row">
         <div className="col-md-6 mx-auto">
-          <form>
+          <form onSubmit={handleSubmit}>
             <input type="text" className="form-control" placeholder='Enter Stock Ticker'
             onChange={(e) => setTicker(e.target.value)} required
             />
