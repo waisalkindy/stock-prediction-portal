@@ -8,9 +8,9 @@ const Header = () => {
         <a className='navbar-brand text-light' href="">Stock Prediction Portal</a>
 
         <div>
-          <Button text='Login' class='btn-outline-info' />
+          <Button text='Login' className='btn-outline-info' />
           &nbsp;
-          <Button text='Register' class='btn-info' />
+          <Button text='Register' className='btn-info' />
         </div>
       </nav>
     </>
