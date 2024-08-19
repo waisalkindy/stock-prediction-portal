@@ -25,7 +25,7 @@ const Header = () => {
             <>
             <Button text='Dashboard' className='btn-info' url="/dashboard" />
             &nbsp;
-            <button className='btn btn-warning' onClick={handleLogout}>Logout</button>
+            <button className='btn btn-warning text-dark' onClick={handleLogout}>Logout</button>
             </>
           ) : (
             <>
