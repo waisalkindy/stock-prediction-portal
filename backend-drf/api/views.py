@@ -132,6 +132,9 @@ class StockPredictionAPIView(APIView):
             # Root Mean Squared Error (RMSE)
             rmse = np.sqrt(mse)
 
+            # R-Squared (R2)
+            r2 = r2_score(y_test, y_predicted)
+
 
 
             return Response({'status': 'success',
@@ -140,5 +143,6 @@ class StockPredictionAPIView(APIView):
                             'plot_200_dma': plot_200_dma,
                             'plot_prediction': plot_prediction,
                             'mse': mse,
-                            'rmse': rmse
+                            'rmse': rmse,
+                            'r2': r2
                             })

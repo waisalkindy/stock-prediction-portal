@@ -13,6 +13,7 @@ const Dashboard = () => {
   const [predict, setPredict] = useState('')
   const [mse, setMSE] = useState('')
   const [rmse, setRMSE] = useState('')
+  const [r2, setR2] = useState('')
 
   useEffect(() => {
     const fetchProtectedData = async () => {
@@ -45,6 +46,7 @@ const Dashboard = () => {
       setPredict(predictUrl)
       setMSE(response.data.mse)
       setRMSE(response.data.rmse)
+      setR2(response.data.r2)
 
         // Set plot
       if(response.data.error){
@@ -102,6 +104,7 @@ const Dashboard = () => {
             <h4>Model Evaluation</h4>
             <p>Mean Squared Error (MSE) = {mse}</p>
             <p>Root Mean Squared Error (RMSE) = {rmse}</p>
+            <p>R-Squared (R2) = {r2}</p>
           </div>
         </div>
         )}
