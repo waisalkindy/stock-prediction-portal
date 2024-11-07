@@ -43,12 +43,12 @@ class StockPredictionAPIView(APIView):
             plt.switch_backend('AGG')
             plt.figure(figsize=(12,5))
             plt.plot(df.Close, label='Closing Price')
-            plt.title(f"Closing price of {ticker}")
+            plt.title(f"Closing Price of {ticker.upper()}")
             plt.xlabel('Days')
             plt.ylabel('Closed Price')
             plt.legend()
             # Save the plot to a file
-            plot_img_path = f"{ticker}_plot.png"
+            plot_img_path = f"{ticker.upper()}_plot.png"
             plot_img = save_plot(plot_img_path)
 
             # 100 days moving average
@@ -57,12 +57,12 @@ class StockPredictionAPIView(APIView):
             plt.figure(figsize=(12,5))
             plt.plot(df.Close, label='Closing Price')
             plt.plot(ma100, 'r', label='100 DMA')
-            plt.title(f"100 Days Moving Average of {ticker}")
+            plt.title(f"100 Days Moving Average of {ticker.upper()}")
             plt.xlabel('Days')
             plt.ylabel('Price')
             plt.legend()
             # Save the plot to a file
-            plot_img_path = f"{ticker}_100_DMA.png"
+            plot_img_path = f"{ticker.upper()}_100_DMA.png"
             plot_100_dma = save_plot(plot_img_path)
 
 
@@ -73,12 +73,12 @@ class StockPredictionAPIView(APIView):
             plt.plot(df.Close, label='Closing Price')
             plt.plot(ma100, 'r', label='100 DMA')
             plt.plot(ma200, 'g', label='200 DMA')
-            plt.title(f"200 Days Moving Average of {ticker}")
+            plt.title(f"200 Days Moving Average of {ticker.upper()}")
             plt.xlabel('Days')
             plt.ylabel('Price')
             plt.legend()
             # Save the plot to a file
-            plot_img_path = f"{ticker}_200_DMA.png"
+            plot_img_path = f"{ticker.upper()}_200_DMA.png"
             plot_200_dma = save_plot(plot_img_path)
 
 
@@ -117,12 +117,12 @@ class StockPredictionAPIView(APIView):
             plt.figure(figsize=(12,5))
             plt.plot(y_test, 'b', label='Original Price')
             plt.plot(y_predicted, 'r', label='Predicted Price')
-            plt.title(f"Final Prediction for {ticker}")
+            plt.title(f"Final Prediction for {ticker.upper()}")
             plt.xlabel('Days')
             plt.ylabel('Price')
             plt.legend()
             # Save the plot to a file
-            plot_img_path = f"{ticker}_final_prediction.png"
+            plot_img_path = f"{ticker.upper()}_final_prediction.png"
             plot_prediction = save_plot(plot_img_path)
 
             # Model Evaluation
